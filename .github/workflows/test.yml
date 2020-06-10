@@ -28,12 +28,12 @@ jobs:
           go env
           export PATH=$PATH:$(go env GOPATH)/bin
           go test -v -covermode=atomic -coverprofile=coverage.out ./...
-        working-directory: ./src/github.com/${{ github.repository }}
+        working-directory: ./src/github.com/${{ github.repository }}/app
       - name: Convert coverage to lcov
         uses: jandelgado/gcov2lcov-action@v1.0.2
         with:
-          infile: ./src/github.com/${{ github.repository }}/coverage.out
-          outfile: ./src/github.com/${{ github.repository }}/coverage.lcov
+          infile: ./src/github.com/${{ github.repository }}/app/coverage.out
+          outfile: ./src/github.com/${{ github.repository }}/app/coverage.lcov
       - name: Read status
         run: |
           go env
@@ -45,4 +45,4 @@ jobs:
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.githubtoken }}
-          path-to-lcov: coverage.lcov
+          path-to-lcov: ./src/github.com/${{ github.repository}}/app/coverage.lcov
