@@ -2,9 +2,6 @@ name: go_test
 on:
   pull_request:
     types: [opened, synchronize]
-defaults:
-  run:
-    working-directory: app
 
 jobs:
   test:
@@ -42,8 +39,8 @@ jobs:
       - name: Convert coverage to lcov
         uses: jandelgado/gcov2lcov-action@v1.0.2
         with:
-          infile: app/coverage.out
-          outfile: app/coverage.lcov
+          infile: coverage.out
+          outfile: coverage.lcov
       - name: Read status
         run: |
           go env
@@ -56,4 +53,4 @@ jobs:
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.githubtoken }}
-          path-to-lcov: app/coverage.lcov
+          path-to-lcov: coverage.lcov
