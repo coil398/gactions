@@ -1,2 +1,2 @@
-mode: atomic
-/home/takumi/Documents/workspace/gactions/app/main.go:3.14,5.2 0 1
+mode: set
+github.com/coil398/gactions/app/main.go:3.14,5.2 0 1
