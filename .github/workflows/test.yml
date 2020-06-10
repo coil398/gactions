@@ -23,3 +23,8 @@ jobs:
         with:
           infile: app/coverage.out
           outfile: coverage.lcov
+      - name: Read status
+        run: |
+          ls 
+          pwd
+          cat coverage.lcov
