@@ -22,7 +22,7 @@ jobs:
           go env
           ls -la
           pwd
-          echo $GOPATH
+          cat coverage.out
       - name: Test
         run: |
           go env
