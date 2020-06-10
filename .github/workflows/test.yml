@@ -22,7 +22,7 @@ jobs:
         uses: jandelgado/gcov2lcov-action@v1.0.0
         with:
           infile: app/coverage.out
-          outfile: coverage.lcov
+          outfile: app/coverage.lcov
       - name: Read status
         run: |
           ls 
