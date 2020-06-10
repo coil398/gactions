@@ -2,6 +2,9 @@ name: go_test
 on:
   pull_request:
     types: [opened, synchronize]
+defaults:
+  run:
+    working-directory: app
 
 jobs:
   test:
@@ -13,15 +16,27 @@ jobs:
           go-version: 1.14.2
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Run Unit tests
+      - name: Test
         run: |
-          go test -race -covermode atomic -coverprofile=profile.cov ./...
-      - name: Send coverage
-        env:
-          COVERALLS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          go env
+          export PATH=$PATH:$(go env GOPATH)/bin
+          go test -v -covermode=atomic -coverprofile=coverage.out ./...
+      - name: Convert coverage to lcov
+        uses: jandelgado/gcov2lcov-action@v1.0.2
+        with:
+          infile: app/coverage.out
+          outfile: app/coverage.lcov
+      - name: Read status
         run: |
+          go env
           ls -la
           pwd
-          GO111MODULE=off go get github.com/mattn/goveralls
-          $(go env GOPATH)/bin/goveralls -coverprofile=profile.cov -service=github
+          echo $GOPATH
+      - name: Read status2
+        run: |
+          go env
           ls -la
+          pwd
+          echo $GOPATH
+        env:
+          GOPATH: ${{ github.workspace }}
