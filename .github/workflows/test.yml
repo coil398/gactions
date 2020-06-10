@@ -32,14 +32,15 @@ jobs:
       - name: Convert coverage to lcov
         uses: jandelgado/gcov2lcov-action@v1.0.2
         with:
-          infile: coverage.out
-          outfile: coverage.lcov
+          infile: ./src/github.com/${{ github.repository }}/coverage.out
+          outfile: ./src/github.com/${{ github.repository }}/coverage.lcov
       - name: Read status
         run: |
           go env
           ls -la
           pwd
           echo $GOPATH
+          cat coverage.lcov
       - name: Coveralls
         uses: coverallsapp/github-action@master
         with:
