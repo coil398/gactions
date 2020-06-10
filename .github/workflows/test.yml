@@ -2,9 +2,6 @@ name: go_test
 on:
   pull_request:
     types: [opened, synchronize]
-defaults:
-  run:
-    working-directory: app
 
 jobs:
   test:
