@@ -41,6 +41,7 @@ jobs:
           pwd
           echo $GOPATH
           cat coverage.lcov
+        working-directory: ./src/github.com/${{ github.repository }}/app
       - name: Coveralls
         uses: coverallsapp/github-action@master
         with:
