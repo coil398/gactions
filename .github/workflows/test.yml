@@ -25,6 +25,6 @@ jobs:
           outfile: app/coverage.lcov
       - name: Read status
         run: |
-          ls 
+          ls -la
           pwd
           cat coverage.lcov
