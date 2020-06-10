@@ -16,11 +16,29 @@ jobs:
           go-version: 1.14.2
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Read status
+        run: |
+          go env
+          ls -la
+          pwd
+          echo $GOPATH
+        env:
+          GOPATH: ${{ github.workspace }}
       - name: Test
         run: |
           go env
           export PATH=$PATH:$(go env GOPATH)/bin
           go test -v -covermode=atomic -coverprofile=coverage.out ./...
+        env:
+          GOPATH: ${{ github.workspace }}
+      - name: Read status
+        run: |
+          go env
+          ls -la
+          pwd
+          echo $GOPATH
+        env:
+          GOPATH: ${{ github.workspace }}
       - name: Convert coverage to lcov
         uses: jandelgado/gcov2lcov-action@v1.0.2
         with:
@@ -32,11 +50,10 @@ jobs:
           ls -la
           pwd
           echo $GOPATH
-      - name: Read status2
-        run: |
-          go env
-          ls -la
-          pwd
-          echo $GOPATH
         env:
           GOPATH: ${{ github.workspace }}
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.githubtoken }}
+          path-to-lcov: app/coverage.lcov
